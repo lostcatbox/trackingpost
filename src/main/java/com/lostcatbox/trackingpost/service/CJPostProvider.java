@@ -28,15 +28,11 @@ public class CJPostProvider implements PostProvider{
             Connection.Response responseget = Jsoup.connect("https://www.cjlogistics.com/ko/tool/parcel/tracking")
                     .method(Connection.Method.GET)
                     .execute(); //첫번째 요청에 session 값가져옴
-            Document document = Jsoup.connect("https://www.cjlogistics.com/ko/tool/parcel/tracking").cookies(responseget.cookies()).get(); //csrf값 추출위해 위에서 추출한 쿠키로 접근시도
-            String csrf = document.select("input[name=_csrf]").attr("value");
+            Document document = responseget.parse();
+            String csrf = document.select("input[name=_csrf]").attr("value"); //첫번째 요청에 csrf값 추출
             Document documentpost = Jsoup.connect("https://www.cjlogistics.com/ko/tool/parcel/tracking-detail")
                     .cookies(responseget.cookies())
-                    .ignoreContentType(true) //강제로 parsing 시도 , 왜 documentType()이 null 일까?
-//                    .header("accept","application/json, */*")
-//                    .header("content-type", "application/x-www-form-urlencoded;")
-//                    .header("accept-encoding", "gzip, deflate, br")
-//                    .header("accept-language", "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7")
+                    .ignoreContentType(true) //json응답이므로 강제로 parsing 시도
                     .requestBody("_csrf="+csrf+"&paramInvcNo="+post_number)
                     .post();
 
@@ -49,7 +45,7 @@ public class CJPostProvider implements PostProvider{
             resultMap.put("content_type", node.findPath("itemNm").asText());
 
             JsonNode node2 = readTree.findPath("parcelDetailResultMap").findPath("resultList");
-            JsonNode fin_node = node2.get(node2.size()-1);
+            JsonNode fin_node = node2.get(node2.size()-1); //가장 최근 노드 추출
             resultMap.put("message", fin_node.findPath("crgNm").asText());
             resultMap.put("status_data", fin_node.findPath("scanNm").asText());
             resultMap.put("location", fin_node.findPath("regBranNm").asText());
@@ -67,8 +63,6 @@ public class CJPostProvider implements PostProvider{
 
         } catch (IOException e){
             e.printStackTrace();
-            e.getMessage();
-            e.getCause();
             return null; //null처리?
         }
     }
