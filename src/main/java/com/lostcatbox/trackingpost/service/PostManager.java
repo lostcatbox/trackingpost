@@ -11,19 +11,23 @@ import java.util.Map;
 public class PostManager {
     @Autowired
     CUPostProvider cuPostProvider;
+    @Autowired
+    CJPostProvider cjPostProvider;
 
     public PostDto getpost(){
         Map<String, Object> info = getinfo();
         if (cuPostProvider.isSupport((PostCompanyEnum) info.get("post_company"))){
             PostDto result = cuPostProvider.get((String) info.get("post_number"));
             return result;
+        }else{
+            PostDto result = cjPostProvider.get((String) info.get("post_number"));
+            return result;
         }
-        return new PostDto();
     }
     public Map<String,Object> getinfo(){ //test, 추후 요청에 대해 분석해주는 Service 만들거나, controller get인자로 받을에정
         HashMap<String , Object> postInfoMap = new HashMap<>();
-        postInfoMap.put("post_company", PostCompanyEnum.CU);
-        postInfoMap.put("post_number", "364321267646");
+        postInfoMap.put("post_company", PostCompanyEnum.CJ);
+        postInfoMap.put("post_number", "364321198184");
         return postInfoMap;
     }
 }
