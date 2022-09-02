@@ -1,21 +1,19 @@
-package com.lostcatbox.trackingpost.service;
+package com.lostcatbox.trackingpost.service.provider;
 
 import com.lostcatbox.trackingpost.domain.PostDto;
+import com.lostcatbox.trackingpost.service.PostCompanyEnum;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
-public class CUPostProvider implements PostProvider{
-    public PostDto get(String post_number){
+public class CUPostProvider implements PostProvider {
+    public PostDto get(String postNumber){
         try {
-            Document doc = Jsoup.connect("https://www.doortodoor.co.kr/jsp/cmn/TrackingCUpost.jsp?pTdNo="+post_number).get();
+            Document doc = Jsoup.connect("https://www.doortodoor.co.kr/jsp/cmn/TrackingCUpost.jsp?pTdNo="+postNumber).get();
             Elements elements = doc.select("table[class=tepTb mt10]"); //해당 class의 이름 테이블 검색
             Elements table = elements.get(0).select("tbody").select("tr");
             Elements rows = table.get(table.size() - 1).select("td");
@@ -25,11 +23,11 @@ public class CUPostProvider implements PostProvider{
             Elements rows2 = table2.get(table2.size() - 1).select("td"); //updated_date, message, 담당집배점, 상대집배점
 
             PostDto postDto = PostDto.builder()
-                    .post_number(rows.get(0).text())
+                    .postNumber(rows.get(0).text())
                     .sender(rows.get(1).text())
                     .receiver(rows.get(2).text())
-                    .content_type(rows.get(3).text())
-                    .status_data(rows2.get(0).text())
+                    .contentType(rows.get(3).text())
+                    .statusData(rows2.get(0).text())
                     .message(rows2.get(1).text())
                     .location(getlocationinfo(rows2)) //location이동중인지, 정착인지 구별후 맞는 location반환
                     .build();
