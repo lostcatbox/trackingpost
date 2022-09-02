@@ -1,18 +1,16 @@
-package com.lostcatbox.trackingpost.service;
+package com.lostcatbox.trackingpost.service.provider;
 
 import com.lostcatbox.trackingpost.domain.PostDto;
+import com.lostcatbox.trackingpost.service.PostCompanyEnum;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
-public class CUPostProvider implements PostProvider{
+public class CUPostProvider implements PostProvider {
     public PostDto get(String postNumber){
         try {
             Document doc = Jsoup.connect("https://www.doortodoor.co.kr/jsp/cmn/TrackingCUpost.jsp?pTdNo="+postNumber).get();

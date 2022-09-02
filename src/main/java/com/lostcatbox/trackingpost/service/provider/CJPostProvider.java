@@ -1,24 +1,20 @@
-package com.lostcatbox.trackingpost.service;
+package com.lostcatbox.trackingpost.service.provider;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lostcatbox.trackingpost.domain.PostDto;
+import com.lostcatbox.trackingpost.service.PostCompanyEnum;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
 
 import java.io.IOException;
-import java.net.http.HttpHeaders;
 import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class CJPostProvider implements PostProvider{
+public class CJPostProvider implements PostProvider {
     @Override
     public PostDto get(String postNumber) {
         ObjectMapper mapper = new ObjectMapper();
