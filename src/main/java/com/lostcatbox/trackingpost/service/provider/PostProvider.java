@@ -4,7 +4,7 @@ import com.lostcatbox.trackingpost.domain.PostDto;
 
 public interface PostProvider {
 
-    PostDto get(String post_number);
+    PostDto get(String postNumber);
 
     boolean isSupport(PostCompanyEnum postcompany);
 }
