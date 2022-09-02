@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class CUPostProvider {
+public class CUPostProvider implements PostProvider{
     public PostDto get(String post_number){
         try {
             Document doc = Jsoup.connect("https://www.doortodoor.co.kr/jsp/cmn/TrackingCUpost.jsp?pTdNo="+post_number).get();
@@ -37,7 +37,7 @@ public class CUPostProvider {
             return postDto;
         } catch (IOException e){
             e.printStackTrace(); //?? 네트워크 오류시 처리방법 정리하기
-            return new PostDto();
+            return null; //null로 처리?
         }
 
     }
