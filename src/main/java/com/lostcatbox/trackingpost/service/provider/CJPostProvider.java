@@ -33,17 +33,17 @@ public class CJPostProvider implements PostProvider {
 
             JsonNode readTree = mapper.readTree(documentpost.body().text());
 
-            JsonNode node = readTree.findPath("parcelResultMap").findPath("resultList").get(0);
-            resultMap.put("postNumber", node.findPath("invcNo").asText());
-            resultMap.put("sender", node.findPath("sendrNm").asText());
-            resultMap.put("receiver", node.findPath("rcvrNm").asText());
-            resultMap.put("contentType", node.findPath("itemNm").asText());
+            JsonNode resultNode = readTree.findPath("parcelResultMap").findPath("resultList").get(0);
+            resultMap.put("postNumber", resultNode.findPath("invcNo").asText());
+            resultMap.put("sender", resultNode.findPath("sendrNm").asText());
+            resultMap.put("receiver", resultNode.findPath("rcvrNm").asText());
+            resultMap.put("contentType", resultNode.findPath("itemNm").asText());
 
-            JsonNode node2 = readTree.findPath("parcelDetailResultMap").findPath("resultList");
-            JsonNode fin_node = node2.get(node2.size()-1); //가장 최근 노드 추출
-            resultMap.put("message", fin_node.findPath("crgNm").asText());
-            resultMap.put("statusData", fin_node.findPath("scanNm").asText());
-            resultMap.put("location", fin_node.findPath("regBranNm").asText());
+            JsonNode detailNode = readTree.findPath("parcelDetailResultMap").findPath("resultList");
+            JsonNode finNode = detailNode.get(detailNode.size()-1); //가장 최근 노드 추출
+            resultMap.put("message", finNode.findPath("crgNm").asText());
+            resultMap.put("statusData", finNode.findPath("scanNm").asText());
+            resultMap.put("location", finNode.findPath("regBranNm").asText());
 
             PostDto postDto = PostDto.builder()
                     .postNumber(resultMap.get("postNumber"))
