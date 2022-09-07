@@ -35,6 +35,8 @@ public class Post {
     private String location; // 위치(허브->허브 or담당지)
     @Column(length=100,nullable =false)
     private String statusData; //택배사의 기록 업데이트 날짜
+    @Column(length=100,nullable =true)
+    private String status; //택배 생태 기록
 
     @CreatedDate
     @Column(updatable = false)
@@ -44,7 +46,7 @@ public class Post {
     private LocalDateTime modifiedDate; //최근 정보 업데이트 날짜
 
     @Builder
-    public Post(Long id, String kakaoId, String postNumber, String sender, String receiver, String contentType, String message, String location, String statusData) {
+    public Post(Long id, String kakaoId, String postNumber, String sender, String receiver, String contentType, String message, String location, String statusData, String status) {
         this.id = id;
         this.kakaoId = kakaoId;
         this.postNumber = postNumber;
@@ -54,5 +56,9 @@ public class Post {
         this.message = message;
         this.location = location;
         this.statusData = statusData;
+        this.status = status;
+    }
+    public void update(LocalDateTime modifiedDate){
+        this.modifiedDate = modifiedDate;
     }
 }
