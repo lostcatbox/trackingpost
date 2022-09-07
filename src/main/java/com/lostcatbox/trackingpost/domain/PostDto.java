@@ -20,6 +20,7 @@ public class PostDto {
     private String message; // detail한 메세지
     private String location; // 위치(허브->허브 or담당지)
     private String statusData; //택배사의 기록 업데이트 날짜
+    private String status; // 간선상차, 하차 등등
 
     private LocalDateTime createdDate; // 처음 만들어진 날짜
 
@@ -36,11 +37,12 @@ public class PostDto {
                 .message(message)
                 .location(location)
                 .statusData(statusData)
+                .status(status)
                 .build();
         return post;
     }
     @Builder     //id 까지 builder에 포함해야하나? 근데 수정할때도 post로 가져와서 update()함수 만들어놓으면 필요없긴한데?
-    public PostDto(Long id, String kakaoId, String postNumber, String sender, String receiver, String contentType, String message, String location, String statusData) {
+    public PostDto(Long id, String kakaoId, String postNumber, String sender, String receiver, String contentType, String message, String location, String statusData, String status) {
         this.id = id;
         this.kakaoId = kakaoId;
         this.postNumber = postNumber;
@@ -50,6 +52,7 @@ public class PostDto {
         this.message = message;
         this.location = location;
         this.statusData = statusData;
+        this.status = status;
     }
 
     public PostDto(Post post) { //post모든 정보 get
@@ -62,6 +65,7 @@ public class PostDto {
         this.message = post.getMessage();
         this.location = post.getLocation();
         this.statusData = post.getStatusData();
+        this.status = post.getStatus();
         this.createdDate = post.getCreatedDate();
         this.modifiedDate = post.getModifiedDate();
     }

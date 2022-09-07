@@ -8,9 +8,11 @@ import com.lostcatbox.trackingpost.service.PostDbService;
 import com.lostcatbox.trackingpost.service.PostManager;
 import com.lostcatbox.trackingpost.service.ValidRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -30,7 +32,7 @@ public class PostController {
     public String gethomepage(){
         RequestInfo requestInfo = validRequest.getinfo(); // 요청에 대한 정보 추출
         PostDto postDto = postManager.getpost(requestInfo); //해당 요청에 대해 post 정보 추출
-        postDbService.savePost(postDto); //dbtest, 추후 다른 msa로 빠질것임 ->
+        postDbService.savePost(postDto); //dbtest, 추후 다른 msa로 빠질것임 -> 중복검사후 저장혹은 modifieddate 바꿈
         return "localhost:8080"+"/"+postDto.getKakaoId()+"/"+postDto.getPostNumber()+"/";
     }
 
@@ -41,5 +43,12 @@ public class PostController {
         PostDto recentPost = postDbService.recentPost(userId, postNumber);//인자 &조건으로 가장최근 데이터 반환, 없다면 빈데이터
         return recentPost;
     }
-    // 추후 새로고침 만들기 post->인자 가져와서 이미 모든 필드값같다면 modified_data만 바꿔주기
+    // 새로고침 만들기 post->인자 가져와서 이미 모든 필드값같다면 modified_data만 바꿔주기
+    @PostMapping (value = "/")
+    public HttpStatus posthomepage(){
+        RequestInfo requestInfo = validRequest.getinfo(); // 요청에 대한 정보 추출
+        PostDto postDto = postManager.getpost(requestInfo); //해당 요청에 대해 post 정보 추출
+        postDbService.savePost(postDto); //dbtest, 추후 다른 msa로 빠질것임 ->
+        return HttpStatus.OK;
+    }
 }
