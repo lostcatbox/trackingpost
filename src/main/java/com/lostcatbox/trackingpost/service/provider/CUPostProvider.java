@@ -28,6 +28,7 @@ public class CUPostProvider implements PostProvider {
                     .receiver(rows.get(2).text())
                     .contentType(rows.get(3).text())
                     .statusData(rows2.get(0).text())
+                    .status("CU") //CU는 택배 상태 정보없음
                     .message(rows2.get(1).text())
                     .location(getlocationinfo(rows2)) //location이동중인지, 정착인지 구별후 맞는 location반환
                     .build();

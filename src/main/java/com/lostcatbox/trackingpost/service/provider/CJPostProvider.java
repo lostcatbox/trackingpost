@@ -42,7 +42,8 @@ public class CJPostProvider implements PostProvider {
             JsonNode detailNode = readTree.findPath("parcelDetailResultMap").findPath("resultList");
             JsonNode finNode = detailNode.get(detailNode.size()-1); //가장 최근 노드 추출
             resultMap.put("message", finNode.findPath("crgNm").asText());
-            resultMap.put("statusData", finNode.findPath("scanNm").asText());
+            resultMap.put("statusData", finNode.findPath("dTime").asText());
+            resultMap.put("status", finNode.findPath("scanNm").asText());
             resultMap.put("location", finNode.findPath("regBranNm").asText());
 
             PostDto postDto = PostDto.builder()
@@ -51,6 +52,7 @@ public class CJPostProvider implements PostProvider {
                     .receiver(resultMap.get("receiver"))
                     .contentType(resultMap.get("contentType"))
                     .statusData(resultMap.get("statusData"))
+                    .status(resultMap.get("status"))
                     .message(resultMap.get("message"))
                     .location(resultMap.get("location"))
                     .build();
