@@ -6,8 +6,10 @@ import com.lostcatbox.trackingpost.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.Check;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -19,8 +21,21 @@ public class PostDbService {
     private final PostRepository postRepository;
 
     //save
+    @Transactional
     public PostDto savePost(PostDto postDto){
-        postRepository.save(postDto.toEntity());
+        Optional<Post> recentPost = postRepository.findTopByPostNumberAndKakaoIdOrderByModifiedDateDesc(postDto.getPostNumber(), postDto.getKakaoId());
+        if (ObjectUtils.isEmpty(recentPost)) {
+            postRepository.save(postDto.toEntity());
+        }
+        else {
+            if (recentPost.get().getStatusData().equals(postDto.getStatusData())){
+                recentPost.get().update(LocalDateTime.now());
+            }
+            else{
+                postRepository.save(postDto.toEntity());
+            }
+        }
+
         return postDto;
     }
     //송장번호중 가장 최근 post정보 가져옴
