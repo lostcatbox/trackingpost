@@ -25,7 +25,7 @@ public class PostManager {
 
     public PostDto getpost(RequestInfo requestInfo){
         for (PostProvider provider:providerList){
-            if (!provider.isSupport(requestInfo.getPostCompany())) { //support확인후 아니면패스
+                if (!provider.isSupport(requestInfo.getPostCompany())) { //support확인후 아니면패스
                 continue;
             }
             else{
