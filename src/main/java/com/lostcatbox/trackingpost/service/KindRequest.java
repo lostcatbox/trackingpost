@@ -1,4 +1,5 @@
 package com.lostcatbox.trackingpost.service;
 
-public interface PostProvider {
+public enum KindRequest {
+    Kakao,Web
 }

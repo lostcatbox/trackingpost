@@ -28,6 +28,16 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+	//jpa 설치
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	//mysql 설치
+	runtimeOnly 'mysql:mysql-connector-java'
+
+	//webclient 설치
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	//jsoup 설치
+	implementation 'org.jsoup:jsoup:1.15.3'
+
 }
 
 tasks.named('test') {
