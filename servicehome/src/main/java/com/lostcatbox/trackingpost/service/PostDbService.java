@@ -1,10 +1,9 @@
 package com.lostcatbox.trackingpost.service;
 
-import com.lostcatbox.trackingpost.domain.Post;
-import com.lostcatbox.trackingpost.domain.PostDto;
-import com.lostcatbox.trackingpost.repository.PostRepository;
+import com.example.trackingpostcore.domain.Post;
+import com.example.trackingpostcore.domain.PostDto;
+import com.example.trackingpostcore.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.annotations.Check;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;

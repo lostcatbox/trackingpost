@@ -2,8 +2,8 @@ package com.lostcatbox.trackingpost.service.provider;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.lostcatbox.trackingpost.domain.PostDto;
-import com.lostcatbox.trackingpost.service.PostCompanyEnum;
+import com.example.trackingpostcore.domain.PostDto;
+import com.example.trackingpostcore.domain.PostCompanyEnum;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

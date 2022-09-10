@@ -1,8 +1,7 @@
-package com.lostcatbox.trackingpost.repository;
+package com.example.trackingpostcore.repository;
 
-import com.lostcatbox.trackingpost.domain.Post;
+import com.example.trackingpostcore.domain.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,7 +1,7 @@
-package com.lostcatbox.trackingpost.domain;
+package com.example.kakaochannel.domain;
 
-import com.lostcatbox.trackingpost.service.KindRequest;
-import com.lostcatbox.trackingpost.service.PostCompanyEnum;
+import com.example.trackingpostcore.domain.KindRequest;
+import com.example.trackingpostcore.domain.PostCompanyEnum;
 import lombok.Getter;
 import lombok.Setter;
 

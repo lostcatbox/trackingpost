@@ -1,4 +1,4 @@
-package com.lostcatbox.trackingpost.domain;
+package com.example.trackingpostcore.domain;
 
 import lombok.AccessLevel;
 import lombok.Builder;

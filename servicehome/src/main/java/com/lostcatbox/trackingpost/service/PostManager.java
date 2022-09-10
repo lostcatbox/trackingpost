@@ -1,10 +1,8 @@
 package com.lostcatbox.trackingpost.service;
 
-import com.lostcatbox.trackingpost.domain.PostDto;
-import com.lostcatbox.trackingpost.domain.RequestInfo;
+import com.example.trackingpostcore.domain.PostDto;
+import com.example.trackingpostcore.domain.RequestInfo;
 import com.lostcatbox.trackingpost.service.provider.PostProvider;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

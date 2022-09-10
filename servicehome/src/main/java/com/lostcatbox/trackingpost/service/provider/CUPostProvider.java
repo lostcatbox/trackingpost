@@ -1,7 +1,7 @@
 package com.lostcatbox.trackingpost.service.provider;
 
-import com.lostcatbox.trackingpost.domain.PostDto;
-import com.lostcatbox.trackingpost.service.PostCompanyEnum;
+import com.example.trackingpostcore.domain.PostDto;
+import com.example.trackingpostcore.domain.PostCompanyEnum;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
