@@ -45,6 +45,8 @@ subprojects {
 		//jsoup 설치
 		implementation 'org.jsoup:jsoup:1.15.3'
 
+		//kafka설치
+		implementation 'org.springframework.kafka:spring-kafka'
 	}
 
 	tasks.named('test') {
