@@ -3,43 +3,84 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.13.RELEASE'
 	id 'java'
 }
-
-group = 'com.lostcatbox'
-version = '0.0.1-SNAPSHOT'
+//java version
 sourceCompatibility = '11'
+
+allprojects{
+	group = 'com.lostcatbox'
+	version = '0.0.1-SNAPSHOT'
+
+	repositories {
+		mavenCentral()
+	}
+}
 
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
 }
+subprojects {
+	apply plugin: 'java'
+	apply plugin: 'org.springframework.boot'
+	apply plugin: 'io.spring.dependency-management'
 
-repositories {
-	mavenCentral()
+	dependencies {
+		implementation 'org.springframework.boot:spring-boot-starter-security'
+		implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+		implementation 'org.springframework.boot:spring-boot-starter-validation'
+		implementation 'org.springframework.boot:spring-boot-starter-web'
+		implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+		compileOnly 'org.projectlombok:lombok'
+		annotationProcessor 'org.projectlombok:lombok'
+		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+		testImplementation 'org.springframework.security:spring-security-test'
+		//jpa 설치
+		implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+		//mysql 설치
+		runtimeOnly 'mysql:mysql-connector-java'
+
+		//webclient 설치
+		implementation 'org.springframework.boot:spring-boot-starter-webflux'
+		//jsoup 설치
+		implementation 'org.jsoup:jsoup:1.15.3'
+
+	}
+
+	tasks.named('test') {
+		useJUnitPlatform()
+	}
 }
+//
+project(":trackingpost-core") {
+	// 공통 코드 모듈
+	bootJar { enabled = false } // core 은 bootJar 로 패키징 할 필요 없음
+	jar { enabled = true }
 
-dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.springframework.security:spring-security-test'
-	//jpa 설치
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	//mysql 설치
-	runtimeOnly 'mysql:mysql-connector-java'
-
-	//webclient 설치
-	implementation 'org.springframework.boot:spring-boot-starter-webflux'
-	//jsoup 설치
-	implementation 'org.jsoup:jsoup:1.15.3'
-
+	dependencies {
+	}
 }
+project(":servicehome") {
+	bootJar { enabled = true }
+	jar { enabled = false }
 
-tasks.named('test') {
-	useJUnitPlatform()
+	dependencies {
+		implementation project(':trackingpost-core') // 컴파일 시 trackingpost-core project 로딩
+	}
+}
+project(":externalpost") {
+	bootJar { enabled = true }
+	jar { enabled = false }
+
+	dependencies {
+		implementation project(':trackingpost-core') // 컴파일 시 trackingpost-core project 로딩
+	}
+}
+project(":kakaochannel") {
+	bootJar { enabled = true }
+	jar { enabled = false }
+
+	dependencies {
+		implementation project(':trackingpost-core') // 컴파일 시 trackingpost-core project 로딩
+	}
 }
