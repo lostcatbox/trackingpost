@@ -27,16 +27,17 @@ public class KafkaConsumerConfig {
         this.env = env;
     }
 
-
+    // DefaultKafkaConsumerFactory 생성자로 설정정보를 만들어서 넣어준다.
     @Bean
     public ConsumerFactory<String, RequestInfo> consumerFactory() {
         Map<String, Object> props = new HashMap<>();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,env.getProperty("bootstrap.servers"));
-        props.put(ConsumerConfig.GROUP_ID_CONFIG,"test");
+        props.put(ConsumerConfig.GROUP_ID_CONFIG,"test"); //consumer 그룹지정
         return new DefaultKafkaConsumerFactory<>(
-                props,new StringDeserializer(), new JsonDeserializer<>(RequestInfo.class));
+                props,new StringDeserializer(), new JsonDeserializer<>(RequestInfo.class)); //역직렬화
     }
 
+    //consumerFactory()설정정보로 kafkaListenerContainerFactory에 등록한다
     @Bean
     public ConcurrentKafkaListenerContainerFactory<String, RequestInfo> kafkaListenerContainerFactory() {
 
