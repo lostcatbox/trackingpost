@@ -1,4 +1,4 @@
-package com.lostcatbox.trackingpost.service.provider;
+package com.example.externalpost.service.provider;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

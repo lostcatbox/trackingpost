@@ -1,4 +1,4 @@
-package com.example.kakaochannel.domain;
+package com.example.trackingpostcore.domain;
 
 import com.example.trackingpostcore.domain.KindRequest;
 import com.example.trackingpostcore.domain.PostCompanyEnum;

@@ -1,7 +1,6 @@
 package com.example.kakaochannel.service;
 
-import com.example.kakaochannel.domain.RequestInfo;
-import com.example.trackingpostcore.domain.KindRequest;
+import com.example.trackingpostcore.domain.RequestInfo;
 import com.example.trackingpostcore.domain.PostCompanyEnum;
 import org.springframework.stereotype.Service;
 

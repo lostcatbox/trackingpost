@@ -1,6 +1,6 @@
 package com.example.kakaochannel.controller;
 
-import com.example.kakaochannel.domain.RequestInfo;
+import com.example.trackingpostcore.domain.RequestInfo;
 import com.example.kakaochannel.service.ValidRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

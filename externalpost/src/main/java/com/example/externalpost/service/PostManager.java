@@ -1,8 +1,8 @@
-package com.lostcatbox.trackingpost.service;
+package com.example.externalpost.service;
 
+import com.example.externalpost.service.provider.PostProvider;
 import com.example.trackingpostcore.domain.PostDto;
 import com.example.trackingpostcore.domain.RequestInfo;
-import com.lostcatbox.trackingpost.service.provider.PostProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
