@@ -59,28 +59,26 @@ project(":trackingpost-core") {
 	bootJar { enabled = false } // core 은 bootJar 로 패키징 할 필요 없음
 	jar { enabled = true }
 
-	dependencies {
-	}
 }
 project(":servicehome") {
-	bootJar { enabled = true }
-	jar { enabled = false }
+//	bootJar { enabled = false }
+//	jar { enabled = true }
 
 	dependencies {
 		implementation project(':trackingpost-core') // 컴파일 시 trackingpost-core project 로딩
 	}
 }
 project(":externalpost") {
-	bootJar { enabled = true }
-	jar { enabled = false }
+//	bootJar { enabled = false }
+//	jar { enabled = true }
 
 	dependencies {
 		implementation project(':trackingpost-core') // 컴파일 시 trackingpost-core project 로딩
 	}
 }
 project(":kakaochannel") {
-	bootJar { enabled = true }
-	jar { enabled = false }
+//	bootJar { enabled = false }
+//	jar { enabled = true }
 
 	dependencies {
 		implementation project(':trackingpost-core') // 컴파일 시 trackingpost-core project 로딩
