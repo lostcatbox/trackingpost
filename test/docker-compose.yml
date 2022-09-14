@@ -1,13 +1,13 @@
 services:
   zookeeper:
-    image: zookeeper
+    image: wurstmeister/zookeeper
     container_name: zookeeper
     expose:
       - "2181"
     networks:
       - trackingpost_net # 해당 네트워크로 편입
   kafka:
-    build: ../kafka-docker
+    image: wurstmeister/kafka
     container_name: kafka
     ports:
       - "9092:9092"
