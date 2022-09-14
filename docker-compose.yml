@@ -19,7 +19,6 @@ services:
     ports:
       - "8082:8082"
 #    working_dir: /app #컨테이너에서 명령어가 실행될 위치
-#    command: ["java","-jar","/app.jar"] #jar 파일 실행
     command: ["java","-jar","/app.jar"] #jar 파일 실행
     depends_on:
       - postdb
@@ -32,8 +31,6 @@ services:
     build: ./externalpost
     expose:
       - "8081"
-#    working_dir: ./externalpost #컨테이너로 복사할 작업파일 경로
-#    command: [ "./gradlew","bootrun" ]
     command: ["java","-jar","/app.jar"] #jar 파일 실행
     depends_on:
       - postdb
@@ -46,8 +43,6 @@ services:
     build: ./servicehome
     ports:
       - "8080:8080"
-#    working_dir: ./servicehome #컨테이너로 복사할 작업파일 경로
-#    command: [ "./gradlew","bootrun" ]
     command: ["java","-jar","/app.jar"] #jar 파일 실행
     depends_on:
       - postdb
@@ -65,8 +60,8 @@ services:
   kafka:
     image: wurstmeister/kafka
     container_name: kafka
-    ports:
-      - "9092:9092"
+    expose:
+      - "9092"
     environment:  #환경변수
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_CREATE_TOPICS: "posttopic"
