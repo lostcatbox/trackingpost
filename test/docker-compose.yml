@@ -6,7 +6,6 @@ services:
       - "2181"
     networks:
       - trackingpost_net # 해당 네트워크로 편입
-    restart: always
   kafka:
     build: ../kafka-docker
     container_name: kafka
@@ -21,7 +20,6 @@ services:
       - zookeeper
     networks:
       - trackingpost_net # 해당 네트워크로 편입
-    restart: always
 networks: #네트워크 새로 등록
   trackingpost_net:
     name: custom_network

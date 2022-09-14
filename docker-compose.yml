@@ -55,9 +55,7 @@ services:
       - trackingpost_net # 해당 네트워크로 편입
     restart: always
 
-
 networks: #네트워크 새로 등록
   trackingpost_net:
-    driver: bridge
     external:
       name: custom_network
