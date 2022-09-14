@@ -1,0 +1,78 @@
+version: "3"
+services:
+  postdb:
+    container_name: postdb
+    image: mysql:8.0.29
+    environment:
+      MYSQL_DATABASE: tracking_post_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: Test2802!
+      MYSQL_ROOT_PASSWORD: Test2802!
+    ports:
+      - "3306:3306"
+    networks:
+      - trackingpost_net # 해당 네트워크로 편입
+    restart: always
+  kakaochannel:
+    container_name: kakaochannel
+    build: ./kakaochannel
+    ports:
+      - "8082:8082"
+#    working_dir: /app #컨테이너에서 명령어가 실행될 위치
+    command: ["java","-jar","/app.jar"] #jar 파일 실행
+    depends_on:
+      - postdb
+    networks:
+      - trackingpost_net # 해당 네트워크로 편입
+    restart: always
+
+  externalpost:
+    container_name: externalpost
+    build: ./externalpost
+    expose:
+      - "8081"
+    command: ["java","-jar","/app.jar"] #jar 파일 실행
+    depends_on:
+      - postdb
+    networks:
+      - trackingpost_net # 해당 네트워크로 편입
+    restart: always
+
+  servicehome:
+    container_name: servicehome
+    build: ./servicehome
+    ports:
+      - "8080:8080"
+    command: ["java","-jar","/app.jar"] #jar 파일 실행
+    depends_on:
+      - postdb
+    networks:
+      - trackingpost_net # 해당 네트워크로 편입
+    restart: always
+
+  zookeeper:
+    image: wurstmeister/zookeeper
+    container_name: zookeeper
+    expose:
+      - "2181"
+    networks:
+      - trackingpost_net # 해당 네트워크로 편입
+  kafka:
+    image: wurstmeister/kafka
+    container_name: kafka
+    expose:
+      - "9092"
+    environment:  #환경변수
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_CREATE_TOPICS: "posttopic"
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092 #{public ip혹은 hostname}(consumer나 producer에서 접속할 ip혹은 도메인):9092 kafka 브로커를 가리키는 사용 가능 주소로 초기연결시에 클라이언트에 전달되는 메타 데이터
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092 # 리스너 들의 목록이고, 호스트/ip 로 구성한다. 해당 옵션을 사용하지 않으면 모든 인터페이스에서 수신 할 수 있다. 기본값. 0.0.0.0
+    depends_on:
+      - zookeeper
+    networks:
+      - trackingpost_net # 해당 네트워크로 편입
+
+
+networks: #네트워크 새로 등록
+  trackingpost_net:
+    driver: bridge
