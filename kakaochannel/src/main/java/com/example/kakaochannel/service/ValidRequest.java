@@ -26,7 +26,7 @@ public class ValidRequest { //추후에 데이터 받아서 정보 추출하는 
             ServletInputStream inputStream = request.getInputStream();
             String messageBody = StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8);
 
-            JsonNode jsonNode = objectMapper.readTree(messageBody);
+            JsonNode jsonNode = objectMapper.readTree(messageBody).get(0);
             resultMap.put("requestuser",jsonNode.findPath("userRequest").findPath("user").findPath("id").asText());
 
             JsonNode detailParams = jsonNode.findPath("detailParams");
