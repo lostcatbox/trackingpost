@@ -19,17 +19,12 @@ import java.util.Map;
 @Service
 @Slf4j
 public class ValidRequest { //추후에 데이터 받아서 정보 추출하는 역할 하는클래스
-    public RequestInfo getinfo(HttpServletRequest request){
+    public RequestInfo getinfo(String params){
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, String> resultMap = new HashMap<>();
         try {
-            ServletInputStream inputStream = request.getInputStream();
-            String messageBody = StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8);
+            JsonNode jsonNode = objectMapper.readTree(params);
 
-            String json = objectMapper.writeValueAsString(messageBody);
-            log.error(objectMapper.readTree(messageBody).asText());
-            JsonNode jsonNode = objectMapper.readTree(json).get(0);
-            log.error(jsonNode.asText());
             resultMap.put("requestuser",jsonNode.findPath("userRequest").findPath("user").findPath("id").asText());
 
             JsonNode detailParams = jsonNode.findPath("detailParams");
