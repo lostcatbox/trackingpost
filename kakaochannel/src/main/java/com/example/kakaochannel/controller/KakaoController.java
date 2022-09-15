@@ -22,7 +22,7 @@ public class KakaoController {
     private static final String topicName = "posttopic";
 
     @GetMapping(value = "/")
-    public String get(@RequestParam String params){
+    public String get(@RequestBody String params){
         RequestInfo requestInfo = validRequest.getinfo(params); // 요청에 대한 정보 추출
         if (requestInfo.equals(new RequestInfo())){ // 만약 요청에 해당하는 객체가 비어있을경우
             return "null에러";
@@ -33,7 +33,7 @@ public class KakaoController {
         return "localhost:8080"+"/"+requestInfo.getRequestUser()+"/"+requestInfo.getPostNumber()+"/";
     }
     @PostMapping(value = "/")
-    public KakaoLinkResponse gethomepage(@RequestParam String params){
+    public KakaoLinkResponse gethomepage(@RequestBody String params){
         RequestInfo requestInfo = validRequest.getinfo(params); // 요청에 대한 정보 추출
         if (requestInfo.equals(new RequestInfo())){ // 만약 요청에 해당하는 객체가 비어있을경우
             return new KakaoLinkResponse();
