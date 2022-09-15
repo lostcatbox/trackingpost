@@ -4,6 +4,8 @@ import com.example.trackingpostcore.domain.RequestInfo;
 import com.example.trackingpostcore.domain.PostCompanyEnum;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StreamUtils;
 
@@ -15,6 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
+@Slf4j
 public class ValidRequest { //추후에 데이터 받아서 정보 추출하는 역할 하는클래스
     public RequestInfo getinfo(HttpServletRequest request){
         ObjectMapper objectMapper = new ObjectMapper();
@@ -29,8 +32,10 @@ public class ValidRequest { //추후에 데이터 받아서 정보 추출하는 
             JsonNode detailParams = jsonNode.findPath("detailParams");
             resultMap.put("post_company",detailParams.findPath("post_company").findPath("value").asText());
             resultMap.put("post_number",detailParams.findPath("post_number").findPath("value").asText());
-
             RequestInfo requestInfo = new RequestInfo();
+
+            log.error(resultMap.get("post_company"));
+            log.error(PostCompanyEnum.valueOf(resultMap.get("post_company")).getValue());
             requestInfo.setPostCompany(PostCompanyEnum.valueOf(resultMap.get("post_company")));
             requestInfo.setPostNumber(resultMap.get("post_number"));
             requestInfo.setRequestUser(resultMap.get("requestuser"));
@@ -38,7 +43,7 @@ public class ValidRequest { //추후에 데이터 받아서 정보 추출하는 
         }
         catch (IOException e){
             e.printStackTrace();
-            return new RequestInfo();// "에러시 빈것 반환"
+            return null; // "에러시 빈것 반환"
         }
     }
 }

@@ -28,7 +28,7 @@ public class KakaoController {
     public String get(HttpServletRequest request){
         RequestInfo requestInfo = validRequest.getinfo(request); // 요청에 대한 정보 추출
         if (requestInfo.equals(new RequestInfo())){ // 만약 요청에 해당하는 객체가 비어있을경우
-            return "null에러" + requestInfo.toString();
+            return "null에러";
         }
         //kafka로 해당 요청 데이터 전송 to 외부 택배조회
         kafkaTemplate.send(topicName, requestInfo);
