@@ -23,7 +23,7 @@ public class ValidRequest { //추후에 데이터 받아서 정보 추출하는 
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, String> resultMap = new HashMap<>();
         try {
-            JsonNode jsonNode = objectMapper.readTree(params);
+            JsonNode jsonNode = objectMapper.readTree(params); //readTree는 @RequestBody에서 row 쓰면되는구나..
 
             resultMap.put("requestuser",jsonNode.findPath("userRequest").findPath("user").findPath("id").asText());
 
@@ -32,9 +32,7 @@ public class ValidRequest { //추후에 데이터 받아서 정보 추출하는 
             resultMap.put("post_number",detailParams.findPath("post_number").findPath("value").asText());
             RequestInfo requestInfo = new RequestInfo();
 
-            log.error(resultMap.get("post_company"));
-            log.error(PostCompanyEnum.valueOf(resultMap.get("post_company")).getValue());
-            requestInfo.setPostCompany(PostCompanyEnum.valueOf(resultMap.get("post_company")));
+            requestInfo.setPostCompany(PostCompanyEnum.valueOfName(resultMap.get("post_company")));
             requestInfo.setPostNumber(resultMap.get("post_number"));
             requestInfo.setRequestUser(resultMap.get("requestuser"));
             return requestInfo;

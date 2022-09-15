@@ -1,5 +1,7 @@
 package com.example.trackingpostcore.domain;
 
+import java.util.Arrays;
+
 public enum PostCompanyEnum {
     CJ("CJ대한통운"),
     CU("CU편의점택배"),
@@ -10,11 +12,17 @@ public enum PostCompanyEnum {
     ILOGEN("로젠택배"),
     CVSNET("CVSNet"),
     DHL("DHL");
-    private final String value;
-    PostCompanyEnum(String value){
-        this.value = value;
+    private final String name;
+    PostCompanyEnum(String name){
+        this.name = name;
     }
-    public String getValue(){
-        return value;
+    public String getName(){
+        return name;
+    }
+    public static PostCompanyEnum valueOfName(String name) {
+        return Arrays.stream(values())
+                .filter(value -> value.name.equals(name))
+                .findAny()
+                .orElse(null);
     }
 }
