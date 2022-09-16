@@ -35,7 +35,7 @@ public class ValidRequest { //추후에 데이터 받아서 정보 추출하는 
             requestInfo.setPostCompany(PostCompanyEnum.valueOfName(resultMap.get("post_company")));
             requestInfo.setPostNumber(resultMap.get("post_number"));
 
-            requestInfo.setRequestUser(resultMap.get("requestuser").substring(0,100));
+            requestInfo.setRequestUser(resultMap.get("requestuser").substring(0,20)); //20자로 한정지음
             return requestInfo;
         }
         catch (IOException e){
