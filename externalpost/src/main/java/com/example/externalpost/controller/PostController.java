@@ -4,6 +4,7 @@ import com.example.externalpost.service.PostDbService;
 import com.example.externalpost.service.PostManager;
 import com.example.trackingpostcore.domain.PostDto;
 import com.example.trackingpostcore.domain.RequestInfo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.time.LocalDateTime;
 @Controller
+@Slf4j
 public class PostController {
     @Autowired
     PostManager postManager;
@@ -33,7 +35,7 @@ public class PostController {
     }
     @KafkaListener(topics = topicName,groupId="logger", containerFactory = "kafkaListenerContainerFactory")
     public void kafkaloger(RequestInfo requestInfo){
-        System.out.println(LocalDateTime.now());
-        System.out.println(requestInfo.toString());
+        log.info(LocalDateTime.now().toString());
+        log.info(requestInfo.toString());
     }
 }
