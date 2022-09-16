@@ -1,15 +1,13 @@
 package com.example.trackingpostcore.domain;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class PostDto {
     private Long id; //unique id
     private String kakaoId; //kakao id
