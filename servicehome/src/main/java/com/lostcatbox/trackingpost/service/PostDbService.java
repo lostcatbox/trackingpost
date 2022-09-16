@@ -20,7 +20,9 @@ public class PostDbService {
     public PostDto recentPost(String kakaoId, String postNumber){
         Optional<Post> recentPost = postRepository.findTopByPostNumberAndKakaoIdOrderByModifiedDateDesc(postNumber,kakaoId);
         if (ObjectUtils.isEmpty(recentPost)){
-            return new PostDto(); //조회경력없음. 빈 post
+            return PostDto.builder()
+                    .message("조회경력없는 데이터")
+                    .build() ; //조회경력없음. 빈 post
         }
         else{
             return new PostDto(recentPost.get()); //최근데이터 하나만 반환함
