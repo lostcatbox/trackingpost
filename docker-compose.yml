@@ -73,6 +73,16 @@ services:
     networks:
       - trackingpost_net # 해당 네트워크로 편입
 
+  homevue:
+    build: ./frontend
+    ports:
+    - "80:80"
+    volumes: # volume 할필요있을까?
+      - "./frontend:/app"
+      - "/app/node_modules"
+    networks:
+      - trackingpost_net # 해당 네트워크로 편입
+
 
 networks: #네트워크 새로 등록
   trackingpost_net:

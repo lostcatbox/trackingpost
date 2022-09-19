@@ -11,6 +11,6 @@ public interface PostRepository extends JpaRepository<Post,Long>{
         List<Post> findAllByKakaoId(String kakaoId);
 
         Optional<Post> findTopByPostNumberAndKakaoIdOrderByModifiedDateDesc(String postNumber,String kakaoId);
-        List<Post> findAllByPostNumberAndKakaoIdOrderByModifiedDateDesc(String postNumber,String kakaoId);
+        List<Post> findAllByKakaoIdOrderByModifiedDateDesc(String kakaoId);
 
 }
