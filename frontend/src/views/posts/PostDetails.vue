@@ -70,10 +70,14 @@ export default {
     })
   },
   fnUpdate(){
-    this.postCompany ="CJ대한통운",
+    this.postCompany ="CJ대한통운" //실서비스에선 필요없음
     this.$axios.post(
         this.$homeserviceAPIUrl + "/"+this.$route.params.userId+"/"+this.$route.params.postNumber+"/",
-        {},{params: {"postCompany":this.postCompany}}
+        {},{
+          params: {"postCompany":this.postCompany},
+          headers: {  'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+            'Accept': '*/*'}
+        }
     ).then(()=> {
       alert("새로고침되었습니다.")
     }).catch((err)=> {

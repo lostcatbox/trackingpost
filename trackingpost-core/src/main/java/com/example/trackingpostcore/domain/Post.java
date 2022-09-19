@@ -21,6 +21,9 @@ public class Post {
     private Long id; //unique id
     @Column(length=50,nullable =false)
     private String kakaoId; //kakao id
+    @Enumerated(EnumType.STRING)
+    @Column(length=50,nullable =false)
+    private PostCompanyEnum postCompany; //postCompany
     @Column(length=50,nullable =false)
     private String postNumber; //송장번호
     @Column(length=20,nullable =false)
@@ -46,9 +49,10 @@ public class Post {
     private LocalDateTime modifiedDate; //최근 정보 업데이트 날짜
 
     @Builder
-    public Post(Long id, String kakaoId, String postNumber, String sender, String receiver, String contentType, String message, String location, String statusData, String status) {
+    public Post(Long id, String kakaoId,PostCompanyEnum postCompanyEnum, String postNumber, String sender, String receiver, String contentType, String message, String location, String statusData, String status) {
         this.id = id;
         this.kakaoId = kakaoId;
+        this.postCompany = postCompanyEnum;
         this.postNumber = postNumber;
         this.sender = sender;
         this.receiver = receiver;

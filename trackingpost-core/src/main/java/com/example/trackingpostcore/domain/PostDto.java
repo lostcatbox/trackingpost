@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 public class PostDto {
     private Long id; //unique id
     private String kakaoId; //kakao id
+    private PostCompanyEnum postCompany; //택배회사
     private String postNumber; //송장번호
     private String sender; //보내는이
     private String receiver; //받는이
@@ -28,6 +29,7 @@ public class PostDto {
         Post post = Post.builder()
                 .id(id)
                 .kakaoId(kakaoId)
+                .postCompanyEnum(postCompany)
                 .postNumber(postNumber)
                 .sender(sender)
                 .receiver(receiver)
@@ -40,9 +42,10 @@ public class PostDto {
         return post;
     }
     @Builder     //id 까지 builder에 포함해야하나? 근데 수정할때도 post로 가져와서 update()함수 만들어놓으면 필요없긴한데?
-    public PostDto(Long id, String kakaoId, String postNumber, String sender, String receiver, String contentType, String message, String location, String statusData, String status) {
+    public PostDto(Long id, String kakaoId,PostCompanyEnum postCompanyEnum, String postNumber, String sender, String receiver, String contentType, String message, String location, String statusData, String status) {
         this.id = id;
         this.kakaoId = kakaoId;
+        this.postCompany = postCompanyEnum;
         this.postNumber = postNumber;
         this.sender = sender;
         this.receiver = receiver;
@@ -56,6 +59,7 @@ public class PostDto {
     public PostDto(Post post) { //post모든 정보 get
         this.id = post.getId();
         this.kakaoId = post.getKakaoId();
+        this.postCompany = post.getPostCompany();
         this.postNumber = post.getPostNumber();
         this.sender = post.getSender();
         this.receiver = post.getReceiver();
