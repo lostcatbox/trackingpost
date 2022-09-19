@@ -12,6 +12,7 @@
         <b-th>보내는이</b-th>
         <b-th>받는이</b-th>
         <b-th>택배종류</b-th>
+        <b-th>상세정보</b-th>
         <b-th>현위치</b-th>
         <b-th>택배회사업데이트일</b-th>
         <b-th>최근 업데이트 시간</b-th>
@@ -24,6 +25,7 @@
         <b-th>{{ row.sender }}</b-th>
         <b-th>{{ row.receiver }}</b-th>
         <b-th>{{ row.contentType }}</b-th>
+        <b-th>{{ row.message }}</b-th>
         <b-th>{{ row.location }}</b-th>
         <b-th>{{ row.statusData}}</b-th>
         <b-th>{{ row.modifiedDate }}</b-th>
