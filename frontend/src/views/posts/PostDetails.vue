@@ -1,25 +1,43 @@
 <template>
   <div class="board-detail">
     <div class="common-buttons">
-      <h3>최근 업데이트 시간 {{modifiedDate}}</h3>
-      <button type="button" class="w3-button w3-round w3-blue-gray" v-on:click="fnUpdate">새로고침</button>&nbsp;
-      <button type="button" class="w3-button w3-round w3-blue-gray" v-on:click="fnMyRecodes">내 택배기록 조회</button>&nbsp;
+      <b-button type="button" class="w3-button w3-round w3-blue-gray" v-on:click="fnUpdate">새로고침</b-button>&nbsp;
+      <b-button type="button" class="w3-button w3-round w3-blue-gray" v-on:click="fnMyRecodes">내 택배기록 조회</b-button>&nbsp;
     </div>
+    <br>
     <div class="board-contents">
-      <h3>택배회사: {{ postCompany }}</h3>
-      <h3>운송장 번호: {{ postNumber }}</h3>
-      <h3>보내는이: {{ sender }}</h3>
-      <h3>받는이: {{ receiver }}</h3>
-      <h3>택배종류: {{ contentType }}</h3>
-      <h3>현위치: {{ location }}</h3>
-      <h3>택배회사업데이트일: {{ statusData }}</h3>
-    </div>
-    <div class="board-contents">
-      <span>{{ message }}</span>
+      <b-table-simple hover small caption-top stacked>
+        <b-thead head-variant="dark">
+          <b-tr>
+            <b-th>택배회사</b-th>
+            <b-th>운송장 번호</b-th>
+            <b-th>보내는이</b-th>
+            <b-th>받는이</b-th>
+            <b-th>택배종류</b-th>
+            <b-th>현위치</b-th>
+            <b-th>상세정보</b-th>
+            <b-th>업데이트일</b-th>
+          </b-tr>
+        </b-thead>
+        <b-tbody>
+          <b-tr>
+            <b-th>최근 업데이트 시간: {{modifiedDate}}</b-th>
+            <b-th stacked-heading="목록" class="text-left">값</b-th>
+            <b-td stacked-heading="택배회사" class="text-left">{{postCompany}}</b-td>
+            <b-td stacked-heading="운송장 번호" class="text-left">{{ postNumber }}</b-td>
+            <b-td stacked-heading="보내는이" class="text-left">{{ sender }}</b-td>
+            <b-td stacked-heading="받는이" class="text-left">{{ receiver }}</b-td>
+            <b-td stacked-heading="택배종류" class="text-left">{{ contentType }}</b-td>
+            <b-td stacked-heading="현위치" class="text-left">{{ location }}</b-td>
+            <b-td stacked-heading="상세정보" class="text-left">{{ message }}</b-td>
+            <b-td stacked-heading="업데이트일" class="text-left">{{ statusData }}</b-td>
+          </b-tr>
+        </b-tbody>
+      </b-table-simple>
     </div>
     <div class="common-buttons">
-      <button type="button" class="w3-button w3-round w3-blue-gray" v-on:click="fnUpdate">새로고침</button>&nbsp;
-      <button type="button" class="w3-button w3-round w3-blue-gray" v-on:click="fnMyRecodes">내 택배기록 조회</button>&nbsp;
+      <b-button type="button" class="w3-button w3-round w3-blue-gray" v-on:click="fnUpdate">새로고침</b-button>&nbsp;
+      <b-button type="button" class="w3-button w3-round w3-blue-gray" v-on:click="fnMyRecodes">내 택배기록 조회</b-button>&nbsp;
     </div>
   </div>
 </template>
@@ -70,9 +88,7 @@ export default {
     })
   },
   fnUpdate(){
-    if (this.postCompany==''){
-      this.postCompany ="CJ대한통운" //실서비스에선 이미들어가있음
-    }
+      //테스트환경에서는 postCompany임의로 넣어주기
     this.$axios.post(
         this.$homeserviceAPIUrl + "/"+this.$route.params.userId+"/"+this.$route.params.postNumber+"/",
         {},{
