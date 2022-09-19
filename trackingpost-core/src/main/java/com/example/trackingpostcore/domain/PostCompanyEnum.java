@@ -23,6 +23,6 @@ public enum PostCompanyEnum {
         return Arrays.stream(values())
                 .filter(value -> value.name.equals(name))
                 .findAny()
-                .orElse(null);
+                .orElseThrow(()-> new RuntimeException("해당하는enum값없음"));
     }
 }

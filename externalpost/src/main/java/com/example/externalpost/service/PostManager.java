@@ -26,6 +26,7 @@ public class PostManager {
                 PostDto result = provider.get(requestInfo.getPostNumber());
                 if (result!=null){ //result 네트워크 오류시 null반환함
                     result.setKakaoId(requestInfo.getRequestUser());
+                    result.setPostCompany(requestInfo.getPostCompany());
                     return result;
                 }
                 else{
