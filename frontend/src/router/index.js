@@ -10,7 +10,7 @@ const routes = [
         component: PostDetails
     },
     {
-        path: '/recodes',
+        path: '/recodes/:userId',
         name: 'Recodes',
         component: Recodes
     },
