@@ -57,7 +57,7 @@ export default {
       }).then((res) => {
         console.log(res.data);
 
-        this.list = res.data.list  //서버에서 데이터를 목록으로 보내므로 바로 할당하여 사용할 수 있다.
+        this.list = res.data  //서버에서 데이터를 목록으로 보내므로 바로 할당하여 사용할 수 있다.
 
       }).catch((err) => {
         if (err.message.indexOf('Network Error') > -1) {
@@ -66,9 +66,7 @@ export default {
       })
     },
     fnPostDetails(){
-      this.$router.push({
-        path: './',
-      })
+      this.$router.go(-1)
     }
   },
 }

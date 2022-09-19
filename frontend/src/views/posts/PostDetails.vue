@@ -70,7 +70,9 @@ export default {
     })
   },
   fnUpdate(){
-    this.postCompany ="CJ대한통운" //실서비스에선 필요없음
+    if (this.postCompany==''){
+      this.postCompany ="CJ대한통운" //실서비스에선 이미들어가있음
+    }
     this.$axios.post(
         this.$homeserviceAPIUrl + "/"+this.$route.params.userId+"/"+this.$route.params.postNumber+"/",
         {},{
@@ -87,8 +89,8 @@ export default {
   },
   fnMyRecodes(){
     this.$router.push({
-      name: "Recodes",
-      query: {userId: this.$router.params.userId}
+      path: '/recodes',
+      query: {userId: this.$route.params.userId}
     })
     }
   },
