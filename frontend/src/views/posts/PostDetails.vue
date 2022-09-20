@@ -1,8 +1,8 @@
 <template>
   <div class="board-detail">
     <div class="common-buttons">
-      <b-button type="button" variant="primary" v-on:click="fnUpdate">새로고침</b-button>&nbsp;
-      <b-button type="button" variant="success" v-on:click="fnMyRecodes">내 택배기록 조회</b-button>&nbsp;
+      <b-button type="button" pill variant="primary" v-on:click="fnUpdate">새로고침</b-button>&nbsp;
+      <b-button type="button" pill variant="success" v-on:click="fnMyRecodes">내 택배기록 조회</b-button>&nbsp;
     </div>
     <br>
     <div class="board-contents">
@@ -36,8 +36,8 @@
       </b-table-simple>
     </div>
     <div class="common-buttons">
-      <b-button type="button" variant="primary" v-on:click="fnUpdate">새로고침</b-button>&nbsp;
-      <b-button type="button" variant="success" v-on:click="fnMyRecodes">내 택배기록 조회</b-button>&nbsp;
+      <b-button type="button" pill variant="primary" v-on:click="fnUpdate">새로고침</b-button>&nbsp;
+      <b-button type="button" pill variant="success" v-on:click="fnMyRecodes">내 택배기록 조회</b-button>&nbsp;
     </div>
   </div>
 </template>
