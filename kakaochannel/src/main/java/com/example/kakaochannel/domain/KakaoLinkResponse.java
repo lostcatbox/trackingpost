@@ -19,6 +19,6 @@ public class KakaoLinkResponse {
         this.requestUser = requestInfo.getRequestUser();
         this.postCompany = requestInfo.getPostCompany();
         this.postNumber = requestInfo.getPostNumber();
-        this.postDataLink ="http://trackingpost.lostcatbox.com:8080"+"/"+requestInfo.getRequestUser()+"/"+requestInfo.getPostNumber()+"/";;
+        this.postDataLink ="http://trackingpost.lostcatbox.com"+"/"+requestInfo.getRequestUser()+"/"+requestInfo.getPostNumber()+"/";;
     }
 }
