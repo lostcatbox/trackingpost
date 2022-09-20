@@ -10,6 +10,8 @@ services:
       MYSQL_ROOT_PASSWORD: Test2802!
     ports:
       - "3306:3306"
+    volumes:
+      -  ./db/mysql-data:/var/lib/mysql
     networks:
       - trackingpost_net # 해당 네트워크로 편입
     restart: always
