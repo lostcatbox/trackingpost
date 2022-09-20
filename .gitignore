@@ -35,3 +35,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### mysqlvolume된 데이터 무시###
+db/*
