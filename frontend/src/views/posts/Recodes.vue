@@ -1,7 +1,7 @@
 <template>
   <div class="board-detail">
     <div class="common-buttons">
-      <b-button type="button" class="w3-button w3-round w3-blue-gray" v-on:click="fnPostDetails">이전페이지로</b-button>&nbsp;
+      <b-button type="button" variant="secondary" v-on:click="fnPostDetails">이전페이지로</b-button>&nbsp;
     </div>
     <br>
     <b-table-simple class="w3-table-all">
@@ -31,7 +31,7 @@
       </tbody>
     </b-table-simple>
     <div class="common-buttons">
-      <b-button type="button" class="w3-button w3-round w3-blue-gray" v-on:click="fnPostDetails">이전페이지로</b-button>&nbsp;
+      <b-button type="button" variant="secondary" v-on:click="fnPostDetails">이전페이지로</b-button>&nbsp;
     </div>
   </div>
 </template>
