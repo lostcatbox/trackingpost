@@ -43,7 +43,7 @@ export default {
   },
   data(){
     return{
-      userId: this.$route.query.userId, //리스트 페이지 데이터전송
+      userId: this.$route.query.userId, //PostDetail.vue가 query로 넘겨준 데이터
       list: {}, //리스트 데이터
     }
   },
