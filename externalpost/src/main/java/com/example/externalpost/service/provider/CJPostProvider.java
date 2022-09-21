@@ -60,7 +60,11 @@ public class CJPostProvider implements PostProvider {
 
         } catch (IOException e){
             e.printStackTrace();
-            return null; //null처리?
+            return null;
+        } catch (IndexOutOfBoundsException e){
+            return null;
+        } catch(RuntimeException e){
+            return null;
         }
     }
 

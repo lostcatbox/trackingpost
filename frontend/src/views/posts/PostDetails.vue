@@ -71,6 +71,9 @@ export default {
           this.$homeserviceAPIUrl + "/"+this.$route.params.userId+"/"+this.$route.params.postNumber+"/", {
         params: this.requestBody}
       ).then((res)=> {
+        if (!res.data.postCompany){ //다시 확인하기 null? ''??
+          alert("택배송장번호가 잘못되었거나, 택배사에 아직 조회되지 않는 택배입니다")
+        }
         console.log(res); //서버
         this.postCompany= res.data.postCompany,
         this.postNumber= res.data.postNumber,

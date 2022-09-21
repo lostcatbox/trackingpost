@@ -27,10 +27,8 @@ subprojects {
 
 	dependencies {
 		implementation 'org.springframework.boot:spring-boot-starter-security'
-		implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 		implementation 'org.springframework.boot:spring-boot-starter-validation'
 		implementation 'org.springframework.boot:spring-boot-starter-web'
-		implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 		compileOnly 'org.projectlombok:lombok'
 		annotationProcessor 'org.projectlombok:lombok'
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -39,12 +37,6 @@ subprojects {
 		implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 		//mysql 설치
 		runtimeOnly 'mysql:mysql-connector-java'
-
-		//webclient 설치
-		implementation 'org.springframework.boot:spring-boot-starter-webflux'
-		//jsoup 설치
-		implementation 'org.jsoup:jsoup:1.15.3'
-
 		//kafka설치
 		implementation 'org.springframework.kafka:spring-kafka'
 	}
@@ -66,6 +58,8 @@ project(":servicehome") {
 
 	dependencies {
 		implementation project(':trackingpost-core') // 컴파일 시 trackingpost-core project 로딩
+		//jsoup 설치
+		implementation 'org.jsoup:jsoup:1.15.3'
 	}
 }
 project(":externalpost") {
@@ -74,6 +68,8 @@ project(":externalpost") {
 
 	dependencies {
 		implementation project(':trackingpost-core') // 컴파일 시 trackingpost-core project 로딩
+		//jsoup 설치
+		implementation 'org.jsoup:jsoup:1.15.3'
 	}
 }
 project(":kakaochannel") {
