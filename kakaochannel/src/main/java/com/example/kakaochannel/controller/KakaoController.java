@@ -4,6 +4,7 @@ import com.example.kakaochannel.domain.KakaoLinkResponse;
 import com.example.trackingpostcore.domain.RequestInfo;
 import com.example.kakaochannel.service.ValidRequest;
 import com.google.gson.JsonObject;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
+@Slf4j
 public class KakaoController {
     @Autowired
     ValidRequest validRequest;
@@ -25,6 +27,7 @@ public class KakaoController {
     @PostMapping(value = "/")
     public String gethomepage(@RequestBody String params){
         RequestInfo requestInfo = validRequest.getinfo(params); // 요청에 대한 정보 추출
+        log.info(requestInfo.toString());
         JsonObject obj = new JsonObject();
         obj.addProperty("version","2.0");
         JsonObject data = new JsonObject();

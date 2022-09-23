@@ -32,7 +32,13 @@ public class ValidRequest { //추후에 데이터 받아서 정보 추출하는 
             resultMap.put("post_number",detailParams.findPath("post_number").findPath("value").asText());
             RequestInfo requestInfo = new RequestInfo();
 
+            //log체크 ?? kakao 본섭에서는 왜 post_company안잡히지?
+            log.info(jsonNode.asText());
+            log.info(resultMap.toString());
+            log.info(resultMap.get("post_company"));
+
             requestInfo.setPostCompany(PostCompanyEnum.valueOfName(resultMap.get("post_company")));
+
             requestInfo.setPostNumber(resultMap.get("post_number"));
 
             String requestuser = resultMap.get("requestuser");
@@ -43,6 +49,14 @@ public class ValidRequest { //추후에 데이터 받아서 정보 추출하는 
                 requestInfo.setRequestUser(requestuser.substring(0, 20)); //product기준은 requestuser 값 너무큼. 20자로 자름
             }
             return requestInfo;
+        }
+        catch (IllegalArgumentException e){
+            e.printStackTrace();
+            return null;
+        }
+        catch (NullPointerException e){
+            e.printStackTrace();
+            return null; // "null에러시 반환"
         }
         catch (IOException e){
             e.printStackTrace();
