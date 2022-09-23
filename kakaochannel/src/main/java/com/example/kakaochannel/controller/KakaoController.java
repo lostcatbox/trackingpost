@@ -22,18 +22,6 @@ public class KakaoController {
 
     private static final String topicName = "posttopic";
 
-//    @GetMapping(value = "/")
-//    public String get(@RequestBody String params){
-//        RequestInfo requestInfo = validRequest.getinfo(params); // 요청에 대한 정보 추출
-////        if (requestInfo.equals(new RequestInfo())){ // 만약 요청에 해당하는 객체가 비어있을경우
-//        if (requestInfo == null){
-//            return "null에러";
-//        }
-//        //kafka로 해당 요청 데이터 전송 to 외부 택배조회
-//        kafkaTemplate.send(topicName, requestInfo);
-//
-//        return "localhost:8080"+"/"+requestInfo.getRequestUser()+"/"+requestInfo.getPostNumber()+"/";
-//    }
     @PostMapping(value = "/")
     public String gethomepage(@RequestBody String params){
         RequestInfo requestInfo = validRequest.getinfo(params); // 요청에 대한 정보 추출
