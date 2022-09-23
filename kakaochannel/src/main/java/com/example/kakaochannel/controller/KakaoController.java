@@ -37,12 +37,13 @@ public class KakaoController {
             linkResponse = new KakaoLinkResponse(r); //해당 링크 작성된 DTO
             kafkaTemplate.send(topicName, r);
             data.addProperty("postDataLink", linkResponse.getPostDataLink());
+            data.addProperty("requestUser", linkResponse.getRequestUser());
+            data.addProperty("postCompany", linkResponse.getPostCompany().getName());
+            data.addProperty("postNumber", linkResponse.getPostNumber());
         }, ()->{
             data.addProperty("postDataLink", "네트워크 오류 혹은 지원하지 않는 택배사");
                 });
-        data.addProperty("requestUser", linkResponse.getRequestUser());
-        data.addProperty("postCompany", linkResponse.getPostCompany().getName());
-        data.addProperty("postNumber", linkResponse.getPostNumber());
+
         obj.add("data", data);
 
         return obj.toString();
