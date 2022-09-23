@@ -32,14 +32,14 @@ public class PostController {
     @KafkaListener(topics = topicName, groupId="test", containerFactory = "kafkaListenerContainerFactory") //containerFactory중요
     public void kafkaconsumer(RequestInfo requestInfo){
         Optional<PostDto> postDto = postManager.getpost(requestInfo);//해당 요청에 대해 post 정보 추출
-        if (postDto.isPresent()) { //응답 문제시 PostDto 객체이거나 null가능
-            postDbService.savePost(postDto.get());
-            log.info("postDbService.savePost실행됨:" + postDto.toString());
-        }
-        else{
-            log.error("saveDb Fail:postDto is null at "+postDto.toString());
-        }
-
+        //응답 문제시 PostDto 객체이거나 null가능
+        postDto.ifPresentOrElse((p) -> {
+                    postDbService.savePost(p);
+                    log.info("postDbService.savePost실행됨:" + p.toString());
+                }
+                , () -> {
+                    log.error("saveDb Fail:postDto is null");
+                });
     }
     @KafkaListener(topics = topicName,groupId="logger", containerFactory = "kafkaListenerContainerFactory")
     public void kafkaloger(RequestInfo requestInfo){

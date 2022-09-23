@@ -31,10 +31,10 @@ public class PostManager {
                     return Optional.ofNullable(result);
                 }
                 else{
-                    return Optional.ofNullable(null); //null대신 에러를 대체할만한 객체필요
+                    return Optional.empty(); //null대신 에러를 대체할만한 객체필요
                 }
             }
         } //for 문을 다돌아도없다?
-        return Optional.ofNullable(null); //null대신 에러를 대체할만한 객체필요
+        return Optional.empty(); //null대신 에러를 대체할만한 객체필요
     }
 }
