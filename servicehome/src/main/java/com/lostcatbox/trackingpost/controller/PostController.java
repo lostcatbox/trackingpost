@@ -15,8 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Controller
-@CrossOrigin(origins="*", allowedHeaders = "*") //cors 관련 설정
+@CrossOrigin(origins={"http://localhost:80","http://trackingpost.lostcatbox.com:80"}, allowedHeaders = "*") //cors 관련 설정
 @RestController
 public class PostController {
     @Autowired
