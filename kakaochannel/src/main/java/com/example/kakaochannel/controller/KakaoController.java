@@ -24,7 +24,6 @@ public class KakaoController {
     private KafkaTemplate<String, RequestInfo> kafkaTemplate;
 
     private static final String topicName = "posttopic";
-    private KakaoLinkResponse linkResponse = new KakaoLinkResponse(); //전역변수로 설정
 
     @PostMapping(value = "/")
     public String gethomepage(@RequestBody String params){
@@ -34,7 +33,7 @@ public class KakaoController {
         JsonObject data = new JsonObject();
 
         requestInfo.ifPresentOrElse((r)-> {
-            linkResponse = new KakaoLinkResponse(r); //해당 링크 작성된 DTO
+            KakaoLinkResponse linkResponse = new KakaoLinkResponse(r); //해당 링크 작성된 DTO// 지역변수여야함.
             kafkaTemplate.send(topicName, r);
             data.addProperty("postDataLink", linkResponse.getPostDataLink());
             data.addProperty("requestUser", linkResponse.getRequestUser());

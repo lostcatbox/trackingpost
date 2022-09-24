@@ -23,6 +23,6 @@ public enum PostCompanyEnum {
         return Arrays.stream(values())
                 .filter(value -> value.name.equals(name))
                 .findAny()
-                .orElseThrow(()-> new IllegalArgumentException("해당하는enum값없음"));
+                .orElseThrow(()-> new IllegalArgumentException("해당하는enum값없음")); // 확인해야함. null말고 오류 터지면, 그냥 끝?에러처리안함냐?
     }
 }
