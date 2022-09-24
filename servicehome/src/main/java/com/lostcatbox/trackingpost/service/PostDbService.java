@@ -10,6 +10,7 @@ import org.springframework.util.ObjectUtils;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,20 +20,15 @@ public class PostDbService {
     private final PostRepository postRepository;
 
     //송장번호중 가장 최근 post정보 가져옴
-    public PostDto getRecentPost(String kakaoId, String postNumber){
+    public Optional<PostDto> getRecentPost(String kakaoId, String postNumber){
         Optional<Post> recentPost = postRepository.findTopByPostNumberAndKakaoIdOrderByModifiedDateDesc(postNumber,kakaoId);
-        if (ObjectUtils.isEmpty(recentPost)){
-            return null;
-        }
-        else{
-            return new PostDto(recentPost.get()); //최근데이터 하나만 반환함
-        }
+        return Optional.of(new PostDto(recentPost.orElseGet(null))); //객체있다면 PostDto 옵셔널로 반환 아니면 null로 옵셔널 반환
     }
     public List<PostDto> getPostList(String kakaoId){
         List<Post> postList = postRepository.findAllByKakaoIdOrderByModifiedDateDesc(kakaoId);
-        List<PostDto> postDtoList = new ArrayList<>();
-        if (postList.isEmpty()){
-            return null;
+        List<PostDto> postDtoList = new ArrayList<>(); //비었다면?
+        if (ObjectUtils.isEmpty(postList)){ //list도 optional처럼 바꿀수있지않을까?-->?
+            return Collections.emptyList();
         }
         else{
             for(Post post : postList) {
