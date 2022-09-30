@@ -15,11 +15,12 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @Slf4j
 public class ValidRequest { //추후에 데이터 받아서 정보 추출하는 역할 하는클래스
-    public RequestInfo getinfo(String params){
+    public Optional<RequestInfo> getinfo(String params){
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, String> resultMap = new HashMap<>();
         try {
@@ -33,6 +34,7 @@ public class ValidRequest { //추후에 데이터 받아서 정보 추출하는 
             RequestInfo requestInfo = new RequestInfo();
 
             requestInfo.setPostCompany(PostCompanyEnum.valueOfName(resultMap.get("post_company")));
+
             requestInfo.setPostNumber(resultMap.get("post_number"));
 
             String requestuser = resultMap.get("requestuser");
@@ -42,11 +44,19 @@ public class ValidRequest { //추후에 데이터 받아서 정보 추출하는 
             } else {
                 requestInfo.setRequestUser(requestuser.substring(0, 20)); //product기준은 requestuser 값 너무큼. 20자로 자름
             }
-            return requestInfo;
+            return Optional.ofNullable(requestInfo);
+        }
+        catch (IllegalArgumentException e){
+            e.printStackTrace();
+            return Optional.empty(); //"null에러시 반환"
+        }
+        catch (NullPointerException e){
+            e.printStackTrace();
+            return Optional.empty(); //"null에러시 반환"
         }
         catch (IOException e){
             e.printStackTrace();
-            return null; // "에러시 빈것 반환"
+            return Optional.empty(); // "null에러시 반환"
         }
     }
 }

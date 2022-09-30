@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-@Controller
 @CrossOrigin(origins="*", allowedHeaders = "*") //cors 관련 설정
 @RestController
 public class PostController {
@@ -28,16 +28,10 @@ public class PostController {
 
     // 내 서버가 응답한 link경로로 접근한경우
     // id값은 DB아이디 값이며, kakaoid값으로 추후 바뀔수있다. 하지만 현재로는 이렇게 검증하고, 가장 최근 자료를 보여주는것이 좋은듯
-    //카카오 임시로 일단 String 반환하게해놓음
     @GetMapping ("/{userId}/{postNumber}/")
     public ResponsePost getpost(@PathVariable String userId,@PathVariable String postNumber){
-        PostDto recentPost = postDbService.getRecentPost(userId, postNumber);//인자 &조건으로 가장최근 데이터 반환, 없다면 null
-        if (ObjectUtils.isEmpty(recentPost)){ //Object의 null값을 체크한다!
-            return new ResponsePost();
-        }
-        else{
-            return new ResponsePost(recentPost);
-        }
+        Optional<PostDto> recentPost = postDbService.getRecentPost(userId, postNumber);//인자 &조건으로 가장최근 데이터 반환, 없다면 null
+        return new ResponsePost(recentPost.orElseGet(null));
     }
      //내 서버로 응답한 link경로로 접근한후 post로 새로고침 명령시 -> kafka로 외부 택배 조회 메세지 보내기 pub
     @PostMapping("/{userId}/{postNumber}/")
