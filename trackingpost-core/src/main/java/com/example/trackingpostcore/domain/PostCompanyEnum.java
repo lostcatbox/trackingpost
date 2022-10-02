@@ -22,7 +22,7 @@ public enum PostCompanyEnum {
         return name;
     }
     public static Optional<PostCompanyEnum> valueOfName(String name) { //core모듈에존재하므로 각자 service에서 null 에러처리할수있도록 optional 반환
-        return Optional.of(Arrays.stream(values())
+        return Optional.ofNullable(Arrays.stream(values())
                 .filter(value -> value.name.equals(name))
                 .findAny()
                 .orElse(null));
