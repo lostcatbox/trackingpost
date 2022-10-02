@@ -1,5 +1,7 @@
 package com.example.externalpost.service;
 
+import com.example.externalpost.advice.exception.CrawlingNullCException;
+import com.example.externalpost.advice.exception.NotSupportProviderCException;
 import com.example.externalpost.service.provider.PostProvider;
 import com.example.trackingpostcore.domain.PostDto;
 import com.example.trackingpostcore.domain.RequestInfo;
@@ -18,7 +20,7 @@ public class PostManager {
         this.providerList = providerList;
     }
 
-    public Optional<PostDto> getpost(RequestInfo requestInfo){
+    public PostDto getpost(RequestInfo requestInfo){
         for (PostProvider provider:providerList){
                 if (!provider.isSupport(requestInfo.getPostCompany())) { //support확인후 아니면패스
                 continue;
@@ -28,13 +30,13 @@ public class PostManager {
                 if (result!=null){ //result 네트워크 오류시 null반환함
                     result.setKakaoId(requestInfo.getRequestUser());
                     result.setPostCompany(requestInfo.getPostCompany());
-                    return Optional.ofNullable(result);
+                    return result;
                 }
                 else{
-                    return Optional.empty(); //null대신 에러를 대체할만한 객체필요
+                    throw new CrawlingNullCException("크롤링후 result=null");
                 }
             }
         } //for 문을 다돌아도없다?
-        return Optional.empty(); //null대신 에러를 대체할만한 객체필요
+        throw new NotSupportProviderCException("지원하는 크롤러발견안됨 NotFoundSupportProvider");
     }
 }
