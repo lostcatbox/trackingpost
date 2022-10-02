@@ -1,4 +1,4 @@
-package com.example.trackingpostcore.advice.exception;
+package com.lostcatbox.trackingpost.advice.exception;
 
 import lombok.NoArgsConstructor;
 

@@ -1,8 +1,7 @@
 package com.example.trackingpostcore.domain;
 
-import com.example.trackingpostcore.advice.exception.NotFoundCompanyEnumCException;
-
 import java.util.Arrays;
+import java.util.Optional;
 
 public enum PostCompanyEnum {
     CJ("CJ대한통운"),
@@ -22,10 +21,10 @@ public enum PostCompanyEnum {
     public String getName(){
         return name;
     }
-    public static PostCompanyEnum valueOfName(String name) {
-        return Arrays.stream(values())
+    public static Optional<PostCompanyEnum> valueOfName(String name) { //core모듈에존재하므로 각자 service에서 null 에러처리할수있도록 optional 반환
+        return Optional.of(Arrays.stream(values())
                 .filter(value -> value.name.equals(name))
                 .findAny()
-                .orElseThrow(()-> new NotFoundCompanyEnumCException("name에 해당하는 택배사의 enum값 없음"));
+                .orElse(null));
     }
 }

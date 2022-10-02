@@ -2,6 +2,7 @@ package com.example.kakaochannel.service;
 
 import com.example.kakaochannel.advice.exception.RequestValidIOCException;
 import com.example.kakaochannel.advice.exception.RequestValidIllegalCException;
+import com.example.kakaochannel.advice.exception.RequestValidNotFoundCompanyEnumException;
 import com.example.kakaochannel.advice.exception.RequestValidNullCException;
 import com.example.trackingpostcore.domain.RequestInfo;
 import com.example.trackingpostcore.domain.PostCompanyEnum;
@@ -36,7 +37,7 @@ public class ValidRequest { //추후에 데이터 받아서 정보 추출하는 
             resultMap.put("post_number",detailParams.findPath("post_number").findPath("value").asText());
             RequestInfo requestInfo = new RequestInfo();
 
-            requestInfo.setPostCompany(PostCompanyEnum.valueOfName(resultMap.get("post_company")));
+            requestInfo.setPostCompany(PostCompanyEnum.valueOfName(resultMap.get("post_company")).orElseThrow(()->new RequestValidNotFoundCompanyEnumException("kakao요청을 valid중 해당하는 택배회사 없음")));
 
             requestInfo.setPostNumber(resultMap.get("post_number"));
 

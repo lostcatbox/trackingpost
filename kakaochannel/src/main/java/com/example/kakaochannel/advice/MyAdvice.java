@@ -2,6 +2,7 @@ package com.example.kakaochannel.advice;
 
 import com.example.kakaochannel.advice.exception.RequestValidIOCException;
 import com.example.kakaochannel.advice.exception.RequestValidIllegalCException;
+import com.example.kakaochannel.advice.exception.RequestValidNotFoundCompanyEnumException;
 import com.example.kakaochannel.advice.exception.RequestValidNullCException;
 
 import com.example.kakaochannel.service.ResponseService;
@@ -21,17 +22,26 @@ public class MyAdvice {
     ResponseService responseService;
 
     @ExceptionHandler(RequestValidIllegalCException.class)
+    @ResponseStatus(HttpStatus.OK)
     protected String throwValidIllegalCException(HttpServletRequest request, RequestValidIllegalCException e) {
         log.info("request: "+request+"\nErrorMessage: "+e.getMessage());
         return responseService.getFailResponse(); //이렇게 반환해도되는지, 카카오톡은 반드시 반환받아야해서
     }
     @ExceptionHandler(RequestValidNullCException.class)
+    @ResponseStatus(HttpStatus.OK)
     protected String throwValidNullCException(HttpServletRequest request, RequestValidNullCException e) {
         log.info("request: "+request+"\nErrorMessage: "+e.getMessage());
         return responseService.getFailResponse();
     }
     @ExceptionHandler(RequestValidIOCException.class)
+    @ResponseStatus(HttpStatus.OK)
     protected String throwValidIOCException(HttpServletRequest request, RequestValidIOCException e) {
+        log.info("request: "+request+"\nErrorMessage: "+e.getMessage());
+        return responseService.getFailResponse();
+    }
+    @ExceptionHandler(RequestValidNotFoundCompanyEnumException.class)
+    @ResponseStatus(HttpStatus.OK)
+    protected String notFoundCompanyEnumException(HttpServletRequest request, RequestValidNotFoundCompanyEnumException e) {
         log.info("request: "+request+"\nErrorMessage: "+e.getMessage());
         return responseService.getFailResponse();
     }

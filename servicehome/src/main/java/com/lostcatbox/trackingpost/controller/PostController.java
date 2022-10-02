@@ -3,18 +3,16 @@ package com.lostcatbox.trackingpost.controller;
 import com.example.trackingpostcore.domain.PostCompanyEnum;
 import com.example.trackingpostcore.domain.PostDto;
 import com.example.trackingpostcore.domain.RequestInfo;
+import com.lostcatbox.trackingpost.advice.exception.NotFoundCompanyEnumCException;
 import com.lostcatbox.trackingpost.domain.ResponsePost;
 import com.lostcatbox.trackingpost.service.PostDbService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.stereotype.Controller;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin(origins="*", allowedHeaders = "*") //cors 관련 설정
 @RestController
@@ -36,7 +34,7 @@ public class PostController {
      //내 서버로 응답한 link경로로 접근한후 post로 새로고침 명령시 -> kafka로 외부 택배 조회 메세지 보내기 pub
     @PostMapping("/{userId}/{postNumber}/")
     public HttpStatus requestRefresh(@PathVariable String userId, @PathVariable String postNumber, @RequestParam String postCompany){
-        PostCompanyEnum postCompanyEnum = PostCompanyEnum.valueOfName(postCompany);
+        PostCompanyEnum postCompanyEnum = PostCompanyEnum.valueOfName(postCompany).orElseThrow(()-> new NotFoundCompanyEnumCException("servicehome 새로고침시 해당하는 택배사조회 못함"));
         RequestInfo requestInfo = new RequestInfo(postNumber,userId, postCompanyEnum);
         kafkaTemplate.send(topicName,requestInfo);
         return HttpStatus.OK;
