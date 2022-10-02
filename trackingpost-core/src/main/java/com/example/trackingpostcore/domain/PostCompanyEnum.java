@@ -1,5 +1,7 @@
 package com.example.trackingpostcore.domain;
 
+import com.example.trackingpostcore.advice.exception.NotFoundCompanyEnumCException;
+
 import java.util.Arrays;
 
 public enum PostCompanyEnum {
@@ -11,7 +13,8 @@ public enum PostCompanyEnum {
     EMS("EMS"),
     ILOGEN("로젠택배"),
     CVSNET("CVSNet"),
-    DHL("DHL");
+    DHL("DHL"),
+    Error("Error");
     private final String name;
     PostCompanyEnum(String name){
         this.name = name;
@@ -23,6 +26,6 @@ public enum PostCompanyEnum {
         return Arrays.stream(values())
                 .filter(value -> value.name.equals(name))
                 .findAny()
-                .orElseThrow(()-> new IllegalArgumentException("해당하는enum값없음")); // 확인해야함. null말고 오류 터지면, 그냥 끝?에러처리안함냐?
+                .orElseThrow(()-> new NotFoundCompanyEnumCException("name에 해당하는 택배사의 enum값 없음"));
     }
 }
