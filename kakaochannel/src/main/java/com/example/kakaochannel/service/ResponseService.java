@@ -18,13 +18,15 @@ public class ResponseService {
         data.addProperty("postCompany", linkResponse.getPostCompany().getName());
         data.addProperty("postNumber", linkResponse.getPostNumber());
 
+        obj.add("data", data);
+
         return obj.toString();
     }
     public String getFailResponse() {
         JsonObject obj = new JsonObject();
         obj.addProperty("version","2.0");
         JsonObject data = new JsonObject();
-        
+
         data.addProperty("postDataLink", "네트워크 오류 혹은 지원하지 않는 택배사");
         obj.add("data", data);
         return obj.toString();
