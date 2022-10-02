@@ -30,19 +30,19 @@ public class MyAdvice {
     @ExceptionHandler(RequestValidNullCException.class)
     @ResponseStatus(HttpStatus.OK)
     protected String throwValidNullCException(HttpServletRequest request, RequestValidNullCException e) {
-        log.info("request: "+request+"\nErrorMessage: "+e.getMessage());
+        log.info("requestURI: "+request.getRequestURI()+"\nErrorMessage: "+e.getMessage());
         return responseService.getFailResponse();
     }
     @ExceptionHandler(RequestValidIOCException.class)
     @ResponseStatus(HttpStatus.OK)
     protected String throwValidIOCException(HttpServletRequest request, RequestValidIOCException e) {
-        log.info("request: "+request+"\nErrorMessage: "+e.getMessage());
+        log.info("requestURI: "+request.getRequestURI()+"\nErrorMessage: "+e.getMessage());
         return responseService.getFailResponse();
     }
     @ExceptionHandler(RequestValidNotFoundCompanyEnumException.class)
     @ResponseStatus(HttpStatus.OK)
     protected String notFoundCompanyEnumException(HttpServletRequest request, RequestValidNotFoundCompanyEnumException e) {
-        log.info("request: "+request+"\nErrorMessage: "+e.getMessage());
+        log.info("requestURI: "+request.getRequestURI()+"\nErrorMessage: "+e.getMessage());
         return responseService.getFailResponse();
     }
 }

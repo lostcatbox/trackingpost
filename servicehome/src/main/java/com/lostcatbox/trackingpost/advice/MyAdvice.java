@@ -16,11 +16,11 @@ public class MyAdvice {
     @ExceptionHandler(NotFoundPostCException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     protected void NotFoundPostCException(HttpServletRequest request, NotFoundPostCException e) {
-        log.info("request: "+request+"\nErrorMessage: "+e.getMessage());
+        log.info("requestURI: "+request.getRequestURI()+"\nErrorMessage: "+e.getMessage());
     }
     @ExceptionHandler(NotFoundCompanyEnumCException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     protected void notFoundCompanyEnumCException(HttpServletRequest request, NotFoundCompanyEnumCException e) {
-        log.info("request: "+request+"\nErrorMessage: "+e.getMessage());
+        log.info("requestURI: "+request.getRequestURI()+"\nErrorMessage: "+e.getMessage());
     }
 }

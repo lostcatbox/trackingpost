@@ -16,12 +16,12 @@ public class MyAdvice {
     @ExceptionHandler(CrawlingNullCException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     protected void nullatCrawlingCException(HttpServletRequest request, CrawlingNullCException e) {
-        log.info("request: "+request+"\nErrorMessage: "+e.getMessage());
+        log.info("requestURI: "+request.getRequestURI()+"\nErrorMessage: "+e.getMessage());
     }
     @ExceptionHandler(NotSupportProviderCException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     protected void canNotFoundProvider(HttpServletRequest request, NotSupportProviderCException e) {
-        log.info("request: "+request+"\nErrorMessage: "+e.getMessage());
+        log.info("requestURI: "+request.getRequestURI()+"\nErrorMessage: "+e.getMessage());
     }
 
 }
