@@ -1,6 +1,7 @@
 package com.example.trackingpostcore.domain;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 public enum PostCompanyEnum {
     CJ("CJ대한통운"),
@@ -11,7 +12,8 @@ public enum PostCompanyEnum {
     EMS("EMS"),
     ILOGEN("로젠택배"),
     CVSNET("CVSNet"),
-    DHL("DHL");
+    DHL("DHL"),
+    Error("Error");
     private final String name;
     PostCompanyEnum(String name){
         this.name = name;
@@ -19,10 +21,10 @@ public enum PostCompanyEnum {
     public String getName(){
         return name;
     }
-    public static PostCompanyEnum valueOfName(String name) {
-        return Arrays.stream(values())
+    public static Optional<PostCompanyEnum> valueOfName(String name) { //core모듈에존재하므로 각자 service에서 null 에러처리할수있도록 optional 반환
+        return Optional.ofNullable(Arrays.stream(values())
                 .filter(value -> value.name.equals(name))
                 .findAny()
-                .orElseThrow(()-> new IllegalArgumentException("해당하는enum값없음")); // 확인해야함. null말고 오류 터지면, 그냥 끝?에러처리안함냐?
+                .orElse(null));
     }
 }

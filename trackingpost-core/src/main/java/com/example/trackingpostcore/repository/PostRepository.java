@@ -8,9 +8,9 @@ import java.util.Optional;
 
 public interface PostRepository extends JpaRepository<Post,Long>{
         Optional<Post> findById(Long id);
-        List<Post> findAllByKakaoId(String kakaoId);
 
         Optional<Post> findTopByPostNumberAndKakaoIdOrderByModifiedDateDesc(String postNumber,String kakaoId);
         List<Post> findAllByKakaoIdOrderByModifiedDateDesc(String kakaoId);
+        boolean existsPostByPostNumberAndKakaoId(String postNumber, String kakaoId);
 
 }

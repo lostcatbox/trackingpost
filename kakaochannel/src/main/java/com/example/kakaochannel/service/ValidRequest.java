@@ -1,5 +1,9 @@
 package com.example.kakaochannel.service;
 
+import com.example.kakaochannel.advice.exception.RequestValidIOCException;
+import com.example.kakaochannel.advice.exception.RequestValidIllegalCException;
+import com.example.kakaochannel.advice.exception.RequestValidNotFoundCompanyEnumException;
+import com.example.kakaochannel.advice.exception.RequestValidNullCException;
 import com.example.trackingpostcore.domain.RequestInfo;
 import com.example.trackingpostcore.domain.PostCompanyEnum;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -20,7 +24,7 @@ import java.util.Optional;
 @Service
 @Slf4j
 public class ValidRequest { //추후에 데이터 받아서 정보 추출하는 역할 하는클래스
-    public Optional<RequestInfo> getinfo(String params){
+    public RequestInfo getinfo(String params){
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, String> resultMap = new HashMap<>();
         try {
@@ -33,7 +37,7 @@ public class ValidRequest { //추후에 데이터 받아서 정보 추출하는 
             resultMap.put("post_number",detailParams.findPath("post_number").findPath("value").asText());
             RequestInfo requestInfo = new RequestInfo();
 
-            requestInfo.setPostCompany(PostCompanyEnum.valueOfName(resultMap.get("post_company")));
+            requestInfo.setPostCompany(PostCompanyEnum.valueOfName(resultMap.get("post_company")).orElseThrow(()->new RequestValidNotFoundCompanyEnumException("kakao요청을 valid중 해당하는 택배회사 없음")));
 
             requestInfo.setPostNumber(resultMap.get("post_number"));
 
@@ -44,19 +48,17 @@ public class ValidRequest { //추후에 데이터 받아서 정보 추출하는 
             } else {
                 requestInfo.setRequestUser(requestuser.substring(0, 20)); //product기준은 requestuser 값 너무큼. 20자로 자름
             }
-            return Optional.ofNullable(requestInfo);
+            return requestInfo;
         }
         catch (IllegalArgumentException e){
-            e.printStackTrace();
-            return Optional.empty(); //"null에러시 반환"
+            throw new RequestValidIllegalCException("kakao채널 요청 valid중  IllegalArgumentException 발생 \n자세히: "+e.getMessage());
         }
         catch (NullPointerException e){
-            e.printStackTrace();
-            return Optional.empty(); //"null에러시 반환"
+            throw new RequestValidNullCException("kakao채널 요청 valid중 NPE발생 자세히: "+e.getMessage());
         }
         catch (IOException e){
             e.printStackTrace();
-            return Optional.empty(); // "null에러시 반환"
+            throw new RequestValidIOCException("kakao채널 요청 valid중 IOException발생 자세히: " + e.getMessage());
         }
     }
 }

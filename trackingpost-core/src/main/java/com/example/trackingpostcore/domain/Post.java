@@ -11,6 +11,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -65,4 +66,14 @@ public class Post {
     public void update(LocalDateTime modifiedDate){
         this.modifiedDate = modifiedDate;
     }
+
+    public static final String DEFAULT_ERROR_DATA = "ERROR";
+
+    public static Post getDefaultErrorPost() {
+        return new Post(-1L, DEFAULT_ERROR_DATA, PostCompanyEnum.Error, DEFAULT_ERROR_DATA, DEFAULT_ERROR_DATA, DEFAULT_ERROR_DATA, DEFAULT_ERROR_DATA, DEFAULT_ERROR_DATA, DEFAULT_ERROR_DATA, DEFAULT_ERROR_DATA,DEFAULT_ERROR_DATA);
+    }
+    public static boolean isDefaultErrorPost(Post post) {
+        return post.equals(getDefaultErrorPost());
+    }
+
 }
