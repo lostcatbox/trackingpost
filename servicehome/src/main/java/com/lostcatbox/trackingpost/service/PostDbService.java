@@ -22,8 +22,8 @@ public class PostDbService {
 
     //송장번호중 가장 최근 post정보 가져옴
     public PostDto getRecentPost(String kakaoId, String postNumber){
-        Post recentPost = postRepository.findTopByPostNumberAndKakaoIdOrderByModifiedDateDesc(postNumber,kakaoId).orElseThrow(
-                ()-> new NotFoundPostCException("RecentPost호출시 해당정보로된 Post 없음"));
+        Post recentPost = postRepository.findTopByPostNumberAndKakaoIdOrderByModifiedDateDesc(postNumber,kakaoId)
+                .orElseThrow(()-> new NotFoundPostCException("RecentPost호출시 해당정보로된 Post 없음"));
         return new PostDto(recentPost);
     }
     public List<PostDto> getPostList(String kakaoId){
