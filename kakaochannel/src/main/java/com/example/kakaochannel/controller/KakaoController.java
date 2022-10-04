@@ -27,6 +27,7 @@ public class KakaoController {
     private static final String topicName = "posttopic";
 
     @PostMapping(value = "/")
+    @Logging
     public String gethomepage(@RequestBody String params) {
         RequestInfo requestInfo = validRequest.getinfo(params); // 요청에 대한 정보 추출
         String result = responseService.getFailResponse(); ////반드시 카카오엔 응답해야하는상황.서비스로빼고, advice에도 Exception후 return 으로 getFailResponse해도되는지

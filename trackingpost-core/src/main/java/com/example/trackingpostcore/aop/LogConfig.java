@@ -1,6 +1,5 @@
 package com.example.trackingpostcore.aop;
 
-import com.google.common.base.Joiner;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -11,6 +10,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -42,6 +42,7 @@ public class LogConfig {
     private String getRequestParams() {
 
         String params = "없음";
+        Map<String, String> paramMap = new HashMap<>();
 
         RequestAttributes requestAttributes = RequestContextHolder
                 .getRequestAttributes(); // 3
@@ -50,7 +51,8 @@ public class LogConfig {
             HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder
                     .getRequestAttributes()).getRequest();
 
-            Map<String, String[]> paramMap = request.getParameterMap();
+            paramMap.put("RequestURL: ", request.getRequestURL().toString());
+            paramMap.put("ClientIpAddr: ",getClientIpAddr(request));
             if (!paramMap.isEmpty()) {
                 params = " [" + paramMapToString(paramMap) + "]";
             }
@@ -59,10 +61,33 @@ public class LogConfig {
         return params;
 
     }
-    private String paramMapToString(Map<String, String[]> paramMap) {
+    private String paramMapToString(Map<String, String> paramMap) {
         return paramMap.entrySet().stream()
                 .map(entry -> String.format("%s -> (%s)",
-                        entry.getKey(), Joiner.on(",").join(entry.getValue())))
+                        entry.getKey(), entry.getValue()))
                 .collect(Collectors.joining(", "));
     }
+
+    public static String getClientIpAddr(HttpServletRequest request) {
+        String ip = request.getHeader("X-Forwarded-For");
+
+        if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("Proxy-Client-IP");
+        }
+        if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("HTTP_CLIENT_IP");
+        }
+        if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("HTTP_X_FORWARDED_FOR");
+        }
+        if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getRemoteAddr();
+        }
+
+        return ip;
+    }
 }
+
