@@ -24,11 +24,11 @@ public class PostDbService {
         Post recentPost = postRepository.findTopByPostNumberAndKakaoIdOrderByModifiedDateDesc(postDto.getPostNumber(), postDto.getKakaoId()).orElse(Post.getDefaultErrorPost());
         if (recentPost.getStatusData().equals(postDto.getStatusData())) {
             recentPost.update(LocalDateTime.now()); //spring에서 한 트랜젝션에서의 변경은 더티체킹일어남
-            log.info("해당 택배 상태는 이미 최신 것: "+postDto);
+            log.info("해당 택배 상태는 이미 최신 것: "+postDto.toString());
             return postDto;
         }
         postRepository.save(postDto.toEntity());
-        log.info("해당 택배를 새로이 업데이트함: "+postDto);
+        log.info("해당 택배를 새로이 업데이트함: "+postDto.toString());
         return postDto;
     }
 }
