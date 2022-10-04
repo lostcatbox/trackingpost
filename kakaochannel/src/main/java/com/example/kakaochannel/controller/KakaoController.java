@@ -2,6 +2,7 @@ package com.example.kakaochannel.controller;
 
 import com.example.kakaochannel.domain.KakaoLinkResponse;
 import com.example.kakaochannel.service.ResponseService;
+import com.example.trackingpostcore.aop.Logging;
 import com.example.trackingpostcore.domain.RequestInfo;
 import com.example.kakaochannel.service.ValidRequest;
 import com.google.gson.JsonObject;
